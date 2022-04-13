@@ -4,8 +4,6 @@ Backend source code of [WeShare](https://github.com/Star-xing1/WeShare)
 
 
 
-
-
 ## :star:Technology stack
 
 - Flutter
