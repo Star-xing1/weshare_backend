@@ -1,7 +1,6 @@
 package com.weshare.repo;
 
 import com.weshare.entity.Post;
-import com.weshare.entity.UserInfo;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,6 +11,6 @@ import java.util.List;
 public interface PostRepo extends JpaRepository<Post, Integer> {
 
     Integer deletePostByPostid(long post_id);
-    Post findPostByPostid(String post_id);
+    Post findByPostid(long post_id);
     List<Post> findAllByInfoId(long infoId, Sort sort);
 }

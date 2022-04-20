@@ -26,10 +26,11 @@ public class Post {
     private String img_url;
 
     @Column(name="created_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt=new Date();
+    private Date createdAt;
 
     @Column(name="info_id")
     private long infoId;
 
+    @Column(name="likes")
+    private Long likes;
 }

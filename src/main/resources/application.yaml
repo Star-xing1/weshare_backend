@@ -6,9 +6,9 @@ server:
 spring:
   # 数据连接池
   datasource:
-    username: root
-    password: xxxx
-    url: jdbc:mysql://localhost:3306/xxx?useSSL=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: cwk
+    password: chenwenkang
+    url: jdbc:mysql://120.24.55.61:3306/weshare?useSSL=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 
@@ -64,6 +64,9 @@ spring:
     properties.smtp.auth: true
     properties.smtp.timeout: 2500
     properties.mail.smtp.ssl.enable: true
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
 
 # 日志信息
 logging:
