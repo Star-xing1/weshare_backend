@@ -41,6 +41,11 @@ public class PostController {
 		return postService.getByInfoId(infoId);
 	}
 
+	@GetMapping("/getByPostId")
+	public List<Post> getByPostId(@RequestParam("postId") long postId) {
+		return postService.getByPostId(postId);
+	}
+
 	@DeleteMapping("/deleteByPostId")
 	public Integer deleteByPostId(@RequestParam("postid") long postid) {
 		return postService.deleteByPostId(postid);

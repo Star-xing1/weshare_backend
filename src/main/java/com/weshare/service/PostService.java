@@ -44,6 +44,10 @@ public class PostService {
 		return postRepo.findAllByInfoId(infoId, Sort.by(Direction.DESC, "createdAt"));
 	}
 
+	public List<Post> getByPostId(long postId) {
+		return postRepo.findAllByPostid(postId);
+	}
+
 	public Integer deleteByPostId(long postid) {
 		return postRepo.deletePostByPostid(postid);
 	}

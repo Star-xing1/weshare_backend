@@ -26,7 +26,8 @@ public class Post {
     private String img_url;
 
     @Column(name="created_at")
-    private Date createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt=new Date();
 
     @Column(name="info_id")
     private long infoId;
