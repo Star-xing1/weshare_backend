@@ -37,4 +37,7 @@ public class Post {
 
     @Column(name="comment_count")
     private Long commentCount;
+
+    @Column(name="is_solved")
+    private Integer isSolved;
 }

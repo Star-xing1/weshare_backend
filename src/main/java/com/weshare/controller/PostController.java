@@ -6,11 +6,13 @@ import com.weshare.entity.Post;
 import com.weshare.service.LikesEnrollService;
 import com.weshare.service.PostService;
 import java.util.List;
+import java.util.Objects;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -103,6 +105,24 @@ public class PostController {
 		postService.increaseLikes(post, -1);
 		likesEnrollService.deleteLikes(userId, postId);
 		return Result.ok().message("取消点赞成功");
+	}
+
+
+	@PutMapping("/update/isSolved")
+	public Result updateIsSolved(@RequestParam Long postId, @RequestParam Integer isSolved) {
+		if (isSolved > 2 || isSolved < 0) {
+			return Result.error().message("isSolved必须位于[0,1]");
+		}
+		Post post = postService.findByPostId(postId);
+		if (post == null) {
+			return Result.error().message("当前推文不存在");
+		}
+		if (Objects.equals(post.getIsSolved(), isSolved)) {
+			return Result.error().message("isSolved未进行更新");
+		}
+		post.setIsSolved(isSolved);
+		postService.save(post);
+		return Result.ok().message("更新isSolved成功");
 	}
 }
 

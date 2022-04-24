@@ -24,6 +24,7 @@ public class PostService {
 	public String create(Post post) {
 		post.setLikes(0L);
 		post.setCommentCount(0L);
+		post.setIsSolved(0);
 		postRepo.save(post);
 		UserInfo userinfo = userProfileRepository.findUserProfileByinfoId(post.getInfoId());
 		userinfo.setPostCount(userinfo.getPostCount() + 1);
@@ -56,6 +57,10 @@ public class PostService {
 
 	public Post findByPostId(Long postId) {
 		return postRepo.findByPostid(postId);
+	}
+
+	public void save(Post post) {
+		postRepo.save(post);
 	}
 
 	/**
