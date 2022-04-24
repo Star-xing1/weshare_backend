@@ -71,6 +71,9 @@ public class PostController {
 	 */
 	@GetMapping("/allLikes")
 	public Result getLikes(Long postId) {
+		if (postId == null) {
+			return Result.error().message("bad request");
+		}
 		Post post = postService.findByPostId(postId);
 		if (post == null) {
 			return Result.error().message("当前推文不存在");
