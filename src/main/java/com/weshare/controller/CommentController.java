@@ -29,7 +29,7 @@ public class CommentController {
 	/**
 	 * 获取指定推文的评论列表
 	 */
-	@GetMapping("/{postId}")
+	@GetMapping("/get/{postId}")
 	public Result getCommentList(@PathVariable("postId") Long postId) {
 		List<Comment> comments = commentService.getComments(postId);
 		if (comments == null) {
@@ -54,7 +54,7 @@ public class CommentController {
 	/**
 	 * 删除指定id评论
 	 */
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public Result removeComment(@PathVariable("id") Long id, @RequestParam Long userId) {
 		Comment comment = commentService.getCommentById(id);
 		if (!Objects.equals(comment.getUserId(), userId)) {

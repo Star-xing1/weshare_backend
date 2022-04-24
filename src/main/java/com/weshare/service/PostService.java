@@ -22,6 +22,7 @@ public class PostService {
 	private UserInfoRepo userProfileRepository;
 
 	public String creat(Post post) {
+		post.setLikes(0L);
 		postRepo.save(post);
 		UserInfo userinfo = userProfileRepository.findUserProfileByinfoId(post.getInfoId());
 		userinfo.setPostCount(userinfo.getPostCount() + 1);

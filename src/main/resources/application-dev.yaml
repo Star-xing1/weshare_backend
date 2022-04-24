@@ -57,9 +57,9 @@ spring:
 
   # 邮箱
   mail:
-    host: xxx
-    username: xxx
-    password: xxx
+    host: smtp
+    username: HNUWeShare@163.com
+    password: MMGZIVTOXBKSQJVW
     port: 465
     properties.smtp.auth: true
     properties.smtp.timeout: 2500
@@ -84,4 +84,4 @@ upload:
 
 # 图片网络访问路径
 img:
-  imgURL: http://xxx:8080/images/
+  imgURL: http://120.24.55.61:8080/images/

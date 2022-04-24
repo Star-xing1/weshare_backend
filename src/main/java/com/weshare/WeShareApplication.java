@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration;
 
 @SpringBootApplication(exclude={SecurityAutoConfiguration.class, SecurityFilterAutoConfiguration.class})
-public class Lab4Application {
+public class WeShareApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Lab4Application.class, args);
+        SpringApplication.run(WeShareApplication.class, args);
     }
 
 }
