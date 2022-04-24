@@ -6,9 +6,9 @@ server:
 spring:
   # 数据连接池
   datasource:
-    username: cwk
-    password: chenwenkang
-    url: jdbc:mysql://120.24.55.61:3306/weshare?useSSL=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: xxx
+    password: xxx
+    url: jdbc:mysql://xxx:3306/weshare?useSSL=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 
@@ -57,9 +57,9 @@ spring:
 
   # 邮箱
   mail:
-    host: smtp
-    username: HNUWeShare@163.com
-    password: MMGZIVTOXBKSQJVW
+    host: xxx
+    username: xxx
+    password: xxx
     port: 465
     properties.smtp.auth: true
     properties.smtp.timeout: 2500
@@ -84,4 +84,4 @@ upload:
 
 # 图片网络访问路径
 img:
-  imgURL: http://120.24.55.61:8080/images/
+  imgURL: http://xxx:8080/images/

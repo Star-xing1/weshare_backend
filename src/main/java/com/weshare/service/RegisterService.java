@@ -90,6 +90,7 @@ public class RegisterService {
                     UserInfo userProfile=new UserInfo();
                     userProfile.setEmail(user.getEmail());
                     userProfile.setUsername(user.getUsername());
+                    userProfile.setJob("萌新");
                     userProfileRepository.save(userProfile);
                     return "Sign up is successful!";
                 }
