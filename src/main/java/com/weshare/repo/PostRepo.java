@@ -13,4 +13,5 @@ public interface PostRepo extends JpaRepository<Post, Integer> {
     Integer deletePostByPostid(long post_id);
     Post findByPostid(long post_id);
     List<Post> findAllByInfoId(long infoId, Sort sort);
+    List<Post> findAllByPostid(long post_id);
 }

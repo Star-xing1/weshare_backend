@@ -5,6 +5,7 @@ import com.weshare.entity.UserInfo;
 import com.weshare.repo.UserRepo;
 import com.weshare.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public class UserInfoController {
     UserInfoService userInfoService;
     @Autowired
     UserRepo userRepository;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @GetMapping("/findAll")
     public List<UserInfo> findAll(){
@@ -76,6 +79,25 @@ public class UserInfoController {
                 if (userProfile.getPhone() != null)
                     userinfo.setPhone(userProfile.getPhone());
                 userInfoService.save(userinfo);    //更新userProfile
+                //缓存一致性
+                String key = "info_email:"+userinfo.getEmail();
+                boolean haskey = redisTemplate.hasKey(key);
+                if (haskey) {
+                    redisTemplate.delete(key);
+                    System.out.println("删除缓存中的key-----------> " + key);
+                }
+                key = "info_username:"+userinfo.getUsername();
+                haskey = redisTemplate.hasKey(key);
+                if (haskey) {
+                    redisTemplate.delete(key);
+                    System.out.println("删除缓存中的key-----------> " + key);
+                }
+                key = "info_id:"+userinfo.getInfoId();
+                haskey = redisTemplate.hasKey(key);
+                if (haskey) {
+                    redisTemplate.delete(key);
+                    System.out.println("删除缓存中的key-----------> " + key);
+                }
                 return "succeed!";
             }
             return "The username has been used!";
@@ -86,6 +108,13 @@ public class UserInfoController {
 
     @GetMapping("/delete")
     public Integer deleteUserProfileByEmail(@RequestParam("email") String email){
+        //缓存一致性
+        String key = "info_email:"+email;
+        boolean haskey = redisTemplate.hasKey(key);
+        if (haskey) {
+            redisTemplate.delete(key);
+            System.out.println("删除缓存中的key-----------> " + key);
+        }
         return  userInfoService.deleteByEmail(email);
     }
 
