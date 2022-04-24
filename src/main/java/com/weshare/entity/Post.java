@@ -34,4 +34,7 @@ public class Post {
 
     @Column(name="likes")
     private Long likes;
+
+    @Column(name="comment_count")
+    private Long commentCount;
 }

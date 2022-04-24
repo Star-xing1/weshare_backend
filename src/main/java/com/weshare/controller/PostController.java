@@ -33,7 +33,7 @@ public class PostController {
 
 	@PostMapping(value = "/create")
 	public String create(@RequestBody Post post) {
-		return postService.creat(post);
+		return postService.create(post);
 	}
 
 	@GetMapping("/getByInfoId")

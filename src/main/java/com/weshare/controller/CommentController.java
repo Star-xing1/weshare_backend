@@ -3,7 +3,9 @@ package com.weshare.controller;
 import com.weshare.common.AddGroup;
 import com.weshare.common.Result;
 import com.weshare.entity.Comment;
+import com.weshare.entity.Post;
 import com.weshare.service.CommentService;
+import com.weshare.service.PostService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentController {
 	@Autowired
 	CommentService commentService;
+	@Autowired
+	PostService postService;
 
 	/**
 	 * 获取指定推文的评论列表
@@ -48,6 +52,8 @@ public class CommentController {
 		}
 		comment.setCreateTime(new Date());
 		commentService.saveComments(comment);
+		Post post = postService.findByPostId(comment.getPostId());
+		postService.increaseCommentCount(post, 1);
 		return Result.ok().message("成功添加评论");
 	}
 
@@ -61,11 +67,16 @@ public class CommentController {
 			// 推文所属者删除评论
 			if (Objects.equals(comment.getBelongUserId(), userId)) {
 				commentService.removeComment(comment);
+				Post post = postService.findByPostId(comment.getPostId());
+				postService.increaseCommentCount(post, -1);
+				return Result.ok().message("推文所属者删除评论成功");
 			}
 			return Result.error().message("当前用户没有权限删除其他用户评论");
 		}
 		// 自己删除自己的评论
 		commentService.removeComment(comment);
-		return Result.ok().message("删除评论成功");
+		Post post = postService.findByPostId(comment.getPostId());
+		postService.increaseCommentCount(post, -1);
+		return Result.ok().message("用户删除自己评论成功");
 	}
 }

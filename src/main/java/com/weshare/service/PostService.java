@@ -21,8 +21,9 @@ public class PostService {
 	@Autowired
 	private UserInfoRepo userProfileRepository;
 
-	public String creat(Post post) {
+	public String create(Post post) {
 		post.setLikes(0L);
+		post.setCommentCount(0L);
 		postRepo.save(post);
 		UserInfo userinfo = userProfileRepository.findUserProfileByinfoId(post.getInfoId());
 		userinfo.setPostCount(userinfo.getPostCount() + 1);
@@ -59,12 +60,25 @@ public class PostService {
 
 	/**
 	 * 增加点赞数
+	 * param: post必须是JPA查询出来的对象
 	 */
 	public void increaseLikes(Post post, Integer i) {
 		if (post == null) {
 			return;
 		}
 		post.setLikes(post.getLikes() + i);
+		postRepo.save(post);
+	}
+
+	/**
+	 * 增加评论数
+	 * param: post必须是JPA查询出来的对象
+	 */
+	public void increaseCommentCount(Post post, Integer i) {
+		if (post == null) {
+			return;
+		}
+		post.setCommentCount(post.getCommentCount() + i);
 		postRepo.save(post);
 	}
 }
