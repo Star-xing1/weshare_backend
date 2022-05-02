@@ -2,9 +2,12 @@ package com.weshare.controller;
 
 import com.weshare.entity.UserInfo;
 import com.weshare.repo.UserInfoRepo;
+import com.weshare.repo.UserRepo;
 import com.weshare.service.UploadService;
+import com.weshare.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +20,13 @@ public class ImageController {
 
     @Autowired
     UploadService uploadService;
+
+    @Autowired
+    UserInfoService userInfoService;
+    @Autowired
+    UserRepo userRepository;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Value("${img.imgURL}")
     private String imgURL;
@@ -40,6 +50,25 @@ public class ImageController {
             //保存数据库映射
             userProfile.setPath(imgURL+fileName);
             //JPA
+            //缓存一致性
+            String key = "info_email:"+userProfile.getEmail();
+            boolean haskey = redisTemplate.hasKey(key);
+            if (haskey) {
+                redisTemplate.delete(key);
+                System.out.println("删除缓存中的key-----------> " + key);
+            }
+            key = "info_username:"+userProfile.getUsername();
+            haskey = redisTemplate.hasKey(key);
+            if (haskey) {
+                redisTemplate.delete(key);
+                System.out.println("删除缓存中的key-----------> " + key);
+            }
+            key = "info_id:"+userProfile.getInfoId();
+            haskey = redisTemplate.hasKey(key);
+            if (haskey) {
+                redisTemplate.delete(key);
+                System.out.println("删除缓存中的key-----------> " + key);
+            }
             userProfileRepository.save(userProfile);
             return "sucess";
         }
